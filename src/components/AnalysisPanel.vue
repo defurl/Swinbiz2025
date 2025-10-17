@@ -1,5 +1,5 @@
 <template>
-    <div class="space-y-6 text-gray-800">
+    <div class="space-y-6 text-gray-800 max-w-md mx-auto">
       <div>
           <h1 class="text-2xl font-bold text-gray-900">Phân tích khu vực</h1>
           <p class="text-md text-gray-600 font-semibold">80 Duy Tân, Dịch Vọng Hậu, Cầu Giấy, Hà Nội</p>
@@ -12,7 +12,7 @@
       </div>
   
       <!-- Demographics Card -->
-      <div class="bg-white rounded-lg shadow p-4">
+      <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
           <h2 class="text-lg font-bold mb-3">Dân cư</h2>
           <ul class="space-y-2 text-sm">
               <li class="flex justify-between"><span>Mật độ dân số:</span> <span class="font-semibold">Cao</span></li>
@@ -22,7 +22,7 @@
       </div>
   
        <!-- Competitor Card -->
-      <div class="bg-white rounded-lg shadow p-4">
+      <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
           <h2 class="text-lg font-bold mb-3">Đối thủ cạnh tranh (bán kính 500m)</h2>
           <ul class="space-y-2 text-sm">
               <li class="flex justify-between items-center">
@@ -45,7 +45,7 @@
       </div>
   
       <!-- Traffic Card -->
-      <div class="bg-white rounded-lg shadow p-4">
+      <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
           <h2 class="text-lg font-bold mb-3">Lưu lượng truy cập</h2>
           <ul class="space-y-2 text-sm">
               <li class="flex justify-between"><span>Giờ cao điểm (sáng):</span> <span class="font-semibold">8:00 - 9:00</span></li>
@@ -55,7 +55,7 @@
       </div>
   
       <!-- Financial Card -->
-      <div class="bg-white rounded-lg shadow p-4">
+      <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
           <h2 class="text-lg font-bold mb-3">Chi phí & Lợi nhuận (Ước tính)</h2>
            <ul class="space-y-2 text-sm">
               <li class="flex justify-between"><span>Giá thuê mặt bằng:</span> <span class="font-semibold">45 triệu/tháng</span></li>
@@ -69,3 +69,9 @@
   <script setup>
   </script>
   
+  <style scoped>
+  /* Add subtle hover effects to make the panel more interactive */
+  .shadow-md:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  </style>

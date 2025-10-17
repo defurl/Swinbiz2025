@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="flex flex-col min-h-screen bg-gray-50 font-sans">
     <Header />
-    <main class="flex-grow">
+    <main class="flex-grow w-full">
       <!-- The router will inject page components here -->
       <router-view />
     </main>

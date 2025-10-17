@@ -163,17 +163,17 @@
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80" class="w-full h-64 object-cover">
                     <div class="p-8 text-center">
-                        <h3 class="text-2xl font-bold mb-2">DOANH NGHIỆP F&B / NGƯỜI THUÊ MẶT BẰNG</h3>
+                        <h3 class="text-xl text-gray-800 font-bold mb-2">DOANH NGHIỆP F&B / NGƯỜI THUÊ MẶT BẰNG</h3>
                         <p class="text-gray-600 mb-6">Tìm vị trí mở quán phù hợp, giảm rủi ro, tối ưu chi phí.</p>
-                        <button class="w-full bg-gray-800 text-black font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">"Tôi là người thuê"</button>
+                        <button class="w-full !bg-yellow-400 text-black font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">"Tôi là người thuê"</button>
                     </div>
                 </div>
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1000&q=80" class="w-full h-64 object-cover">
                     <div class="p-8 text-center">
-                        <h3 class="text-2xl font-bold mb-2">CHỦ MẶT BẰNG / NHÀ CHO THUÊ, BÁN</h3>
+                        <h3 class="text-xl text-gray-800 font-bold mb-2">CHỦ MẶT BẰNG / NHÀ CHO THUÊ, BÁN</h3>
                         <p class="text-gray-600 mb-6">Tăng độ tin cậy, tìm khách thuê đúng nhu cầu.</p>
-                        <button class="w-full bg-gray-800 text-black font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">"Tôi là chủ mặt bằng"</button>
+                        <button class="w-full !bg-yellow-400 text-black font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">"Tôi là chủ mặt bằng"</button>
                     </div>
                 </div>
             </div>

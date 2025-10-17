@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LandingPage from '../pages/LandingPage.vue';
+import AnalysisPage from '../pages/AnalysisPage.vue';
 
 const routes = [
   {
@@ -7,7 +8,14 @@ const routes = [
     name: 'LandingPage',
     component: LandingPage,
   },
-  // We can add more routes here for other pages in the future
+  {
+    path: '/analysis',
+    name: 'AnalysisPage',
+    component: AnalysisPage
+  },
+  {
+  },
+
 ];
 
 const router = createRouter({

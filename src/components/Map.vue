@@ -1,5 +1,5 @@
 <template>
-    <div ref="mapContainer" class="w-full h-full"></div>
+    <div ref="mapContainer" class="w-full h-full map-container"></div>
   </template>
   
   <script setup>
@@ -39,6 +39,8 @@
       mapId: 'FNB_SPOT_MAP_PROTOTYPE',
       disableDefaultUI: true,
       zoomControl: true,
+      fullscreenControl: true,
+      streetViewControl: true,
     });
   
     // Main location marker
@@ -85,8 +87,26 @@
     try {
       await loadGoogleMapsAPI();
       initMap();
+      
+      // Handle window resize to ensure map fills container
+      window.addEventListener('resize', () => {
+        const center = map?.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        if (center && map) map.setCenter(center);
+      });
     } catch (error) {
       console.error('Error loading Google Maps:', error);
     }
   });
   </script>
+  
+  <style scoped>
+  /* Ensure the map container takes full height and width */
+  .map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  </style>
