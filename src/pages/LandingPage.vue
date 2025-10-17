@@ -1,81 +1,120 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <section 
-        class="relative bg-cover bg-center text-white py-32 px-4"
-        :style="{ backgroundImage: `url(${heroImage})` }"
-    >
-      <div class="absolute inset-0 bg-black opacity-60"></div>
-      <div class="relative container mx-auto text-center">  
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
-          Tìm địa điểm tốt nhất cho<br>doanh nghiệp F&B của bạn
+        <section 
+            class="relative bg-cover bg-center text-white py-32 px-4"
+            :style="{ backgroundImage: `url(${heroImage})` }"
+        >
+      <div class="absolute inset-0 bg-black opacity-10"></div>
+      <div class="relative container mx-auto ">  
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">
+          "Tìm địa điểm tốt nhất cho<br>doanh nghiệp F&B của bạn"
         </h1>
-        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-          F&BSpot giúp các doanh nghiệp F&B chọn vị trí kinh doanh thông minh hơn - bằng dữ liệu thực tế về dân cư, đối thủ, traffic và xu hướng tiêu dùng. Không còn chọn địa điểm theo cảm tính.
-        </p>
-        <router-link to="/analysis" class="!bg-blue-600 !text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 inline-flex items-center justify-center">    
+        <router-link to="/analysis" class="!bg-blue-600 mt-4 !text-white font-bold py-3 px-8 rounded-full text-2xl transition duration-300 transform hover:scale-105 inline-flex items-center justify-center">    
             <span>Bắt đầu ngay</span>
         </router-link>
-</div>
+      </div>
     </section>
 
     <!-- Value Proposition Section -->
     <section class="py-16 bg-white">
+        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+          "F&BSpot giúp các doanh nghiệp F&B chọn vị trí kinh doanh thông minh hơn - bằng dữ liệu thực tế về dân cư, đối thủ, traffic và xu hướng tiêu dùng. 
+          Không còn chọn địa điểm theo cảm tính."
+        </p>
         <div class="container mx-auto px-4 text-center">
-            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <div class="flex items-center bg-gray-100 p-4 rounded-lg">
-                    <div class="p-3 mr-4 text-blue-500 bg-white rounded-full shadow">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    </div>
-                    <h3 class="font-semibold text-gray-800">Địa điểm thông minh</h3>
+            <div class="grid md:grid-cols-3 gap-12 max-w-3xl mx-auto">
+            <div class="flex items-center justify-center bg-blue-600 p-3 rounded-3xl text-white shadow-md">
+                <div class="p-3 mr-2 bg-white/20 rounded-full">
+                <i class="fas fa-map-marked-alt text-white text-2xl"></i>
                 </div>
-                <div class="flex items-center bg-yellow-100 p-4 rounded-lg border-2 border-yellow-400">
-                     <div class="p-3 mr-4 text-yellow-500 bg-white rounded-full shadow">
-                       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                    </div>
-                    <h3 class="font-semibold text-gray-800">Phân tích thị trường tự động</h3>
-                </div>
-                <div class="flex items-center bg-gray-100 p-4 rounded-lg">
-                     <div class="p-3 mr-4 text-green-500 bg-white rounded-full shadow">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="font-semibold text-gray-800">Tiết kiệm thời gian, chi phí</h3>
-                </div>
+                <h3 class="font-semibold text-lg">Chọn địa điểm thông minh</h3>
             </div>
+
+            <div class="flex items-center justify-center bg-yellow-500 p-3 rounded-3xl text-white shadow-md">
+                <div class="p-3 mr-2 bg-white/20 rounded-full">
+                <i class="fas fa-chart-line text-white text-2xl"></i>
+                </div>
+                <h3 class="font-semibold text-lg">Phân tích thị trường tự động</h3>
+            </div>
+
+            <div class="flex items-center justify-center bg-blue-600 p-3 rounded-3xl text-white shadow-md">
+                <div class="p-3 mr-2 bg-white/20 rounded-full">
+                <i class="fas fa-clock text-white text-2xl"></i>
+                </div>
+                <h3 class="font-semibold text-lg">Tiết kiệm thời gian, chi phí</h3>
+            </div>
+            </div>
+
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="bg-gray-50 py-16">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="relative h-64 rounded-lg overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1517498499704-74a49d01540d?auto=format&fit=crop&w=800&q=60" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-6">
-                        <h3 class="text-white text-2xl font-bold">BẢN ĐỒ ĐỐI THỦ & TRAFFIC THEO GIỜ</h3>
-                    </div>
-                </div>
-                 <div class="relative h-64 rounded-lg overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?auto=format&fit=crop&w=800&q=60" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-6">
-                        <h3 class="text-white text-2xl font-bold">PHÂN TÍCH CHI PHÍ THUÊ & LỢI NHUẬN TIỀM NĂNG</h3>
-                    </div>
-                </div>
-                 <div class="relative h-64 rounded-lg overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=60" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-6">
-                        <h3 class="text-white text-2xl font-bold">DỰ BÁO XU HƯỚNG TIÊU DÙNG F&B THEO KHU VỰC</h3>
-                    </div>
-                </div>
-                 <div class="relative h-64 rounded-lg overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1560421683-6253b804483a?auto=format&fit=crop&w=800&q=60" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-6">
-                        <h3 class="text-white text-2xl font-bold">DASHBOARD TỐI ƯU VẬN HÀNH (VỚI GÓI PREMIUM)</h3>
-                    </div>
-                </div>
-            </div>
+  <section class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2">
+
+        <!-- Card 1 -->
+        <div
+          class="relative h-64 overflow-hidden flex items-center justify-center text-center text-white p-6 "
+          :style="{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${feature1})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }"
+        >
+          <h3 class="text-2xl font-bold max-w-lg">
+            BẢN ĐỒ ĐỐI THỦ & TRAFFIC THEO GIỜ
+          </h3>
         </div>
-    </section>
+
+        <!-- Card 2 -->
+        <div
+          class="relative h-64 overflow-hidden flex items-center justify-center text-center text-white p-6 "
+          :style="{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${feature2})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }"
+        >
+          <h3 class="text-2xl font-bold max-w-lg">
+            PHÂN TÍCH CHI PHÍ THUÊ & LỢI NHUẬN TIỀM NĂNG
+          </h3>
+        </div>
+
+        <!-- Card 3 -->
+        <div
+          class="relative h-64 overflow-hidden flex items-center justify-center text-center text-white p-6 "
+          :style="{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${feature3})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }"
+        >
+          <h3 class="text-2xl font-bold max-w-lg">
+            DỰ BÁO XU HƯỚNG TIÊU DÙNG F&B THEO KHU VỰC
+          </h3>
+        </div>
+
+        <!-- Card 4 -->
+        <div
+          class="relative h-64 overflow-hidden flex items-center justify-center text-center text-white p-6 "
+          :style="{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${feature4})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }"
+        >
+          <h3 class="text-2xl font-bold max-w-lg">
+            DASHBOARD TỐI ƯU VẬN HÀNH (VỚI GÓI PREMIUM)
+          </h3>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
 
     <!-- How It Works Section -->
     <section class="py-20 bg-white">
@@ -126,7 +165,7 @@
                     <div class="p-8 text-center">
                         <h3 class="text-2xl font-bold mb-2">DOANH NGHIỆP F&B / NGƯỜI THUÊ MẶT BẰNG</h3>
                         <p class="text-gray-600 mb-6">Tìm vị trí mở quán phù hợp, giảm rủi ro, tối ưu chi phí.</p>
-                        <button class="w-full bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">"Tôi là người thuê"</button>
+                        <button class="w-full bg-gray-800 text-black font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">"Tôi là người thuê"</button>
                     </div>
                 </div>
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -134,7 +173,7 @@
                     <div class="p-8 text-center">
                         <h3 class="text-2xl font-bold mb-2">CHỦ MẶT BẰNG / NHÀ CHO THUÊ, BÁN</h3>
                         <p class="text-gray-600 mb-6">Tăng độ tin cậy, tìm khách thuê đúng nhu cầu.</p>
-                        <button class="w-full bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">"Tôi là chủ mặt bằng"</button>
+                        <button class="w-full bg-gray-800 text-black font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">"Tôi là chủ mặt bằng"</button>
                     </div>
                 </div>
             </div>
@@ -145,6 +184,10 @@
 </template>
 
 <script setup>
-    import heroImage from './hero.jpg'
-</script>
+    import heroImage from '../assets/hero.jpg';
+    import feature1 from '../assets/feature1.jpg'
+    import feature2 from '../assets/feature2.jpg'
+    import feature3 from '../assets/feature3.jpg'
+    import feature4 from '../assets/feature4.jpg'
+    </script>
 
