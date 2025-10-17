@@ -100,31 +100,6 @@
         <i class="fas fa-filter text-blue-600"></i>
         <span class="text-gray-700">Bộ lọc</span>
       </button>-->
-
-      <!-- Features Legend -->
-      <div class="absolute bottom-4 right-4 z-10 bg-white rounded-lg shadow-lg p-4 max-w-xs">
-        <h4 class="font-medium text-sm mb-2 text-gray-700">Tính năng bản đồ</h4>
-        <div class="space-y-1 text-xs">
-          <div class="flex items-center">
-            <div class="w-6 h-6 flex items-center justify-center mr-2">
-              <i class="fas fa-fire text-red-500"></i>
-            </div>
-            <span class="text-gray-600">Mật độ khách hàng tiềm năng (màu vàng → đỏ: thấp → cao)</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-6 h-6 flex items-center justify-center mr-2">
-              <i class="fas fa-car text-blue-500"></i>
-            </div>
-            <span class="text-gray-600">Hiển thị lưu lượng giao thông</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-6 h-6 flex items-center justify-center mr-2">
-              <i class="fas fa-draw-polygon text-green-500"></i>
-            </div>
-            <span class="text-gray-600">Phân tích khu vực kinh doanh</span>
-          </div>
-        </div>
-      </div>
       
       <!-- Map Container -->
       <div ref="mapContainer" class="w-full h-full map-container transition-opacity duration-500" :class="{ 'opacity-50': isFilterOpen }"></div>
