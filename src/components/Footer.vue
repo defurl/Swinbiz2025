@@ -10,7 +10,7 @@
                   </svg>
                   <span class="text-2xl font-bold">F&B Spot</span>
               </a>
-              <p class="text-gray-400">Giải pháp thông minh để tìm kiếm mặt bằng kinh doanh F&B.</p>
+              <p class="text-center text-gray-400">Giải pháp thông minh để tìm kiếm mặt bằng kinh doanh F&B.</p>
           </div>
           
         </div>
