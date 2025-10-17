@@ -1,19 +1,22 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <section class="relative bg-cover bg-center text-white py-32 px-4" style="background-image: url('https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+    <section 
+        class="relative bg-cover bg-center text-white py-32 px-4"
+        :style="{ backgroundImage: `url(${heroImage})` }"
+    >
       <div class="absolute inset-0 bg-black opacity-60"></div>
-      <div class="relative container mx-auto text-center">
+      <div class="relative container mx-auto text-center">  
         <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
           Tìm địa điểm tốt nhất cho<br>doanh nghiệp F&B của bạn
         </h1>
         <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
           F&BSpot giúp các doanh nghiệp F&B chọn vị trí kinh doanh thông minh hơn - bằng dữ liệu thực tế về dân cư, đối thủ, traffic và xu hướng tiêu dùng. Không còn chọn địa điểm theo cảm tính.
         </p>
-        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">
-          Bắt đầu ngay
-        </button>
-      </div>
+        <router-link to="/analysis" class="!bg-blue-600 !text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 inline-flex items-center justify-center">    
+            <span>Bắt đầu ngay</span>
+        </router-link>
+</div>
     </section>
 
     <!-- Value Proposition Section -->
@@ -142,6 +145,6 @@
 </template>
 
 <script setup>
-// No script logic needed for the landing page content.
+    import heroImage from './hero.jpg'
 </script>
 
