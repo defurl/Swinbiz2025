@@ -1,5 +1,5 @@
 <template>
-    <div class="relative w-full h-full">
+    <div class="relative w-full h-full map-component flex flex-col">
       <!-- Loading Overlay -->
       <transition
         enter-active-class="transition-opacity duration-500"
@@ -12,52 +12,152 @@
           <p class="mt-4 text-gray-600 font-medium">Đang tải bản đồ...</p>
         </div>
       </transition>
+      
+      <!-- Detail Popup -->
+      <transition
+        enter-active-class="transition-all duration-300"
+        leave-active-class="transition-all duration-300"
+        enter-from-class="opacity-0 scale-95"
+        leave-to-class="opacity-0 scale-95"
+      >
+        <div v-if="showPopup" class="fixed inset-0 flex items-center justify-center z-50">
+          <div class="fixed inset-0 bg-black bg-opacity-50" @click="closePopup"></div>
+          <div class="relative bg-white rounded-lg shadow-xl max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto text-gray-800">
+            <button @click="closePopup" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="p-6 text-gray-800">
+              <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">{{ popupData.name }}</h2>
+                <div class="flex items-center mt-1">
+                  <div class="text-yellow-400 mr-1">
+                    {{ '★'.repeat(Math.floor(popupData.rating)) }}{{ popupData.rating % 1 >= 0.5 ? '½' : '' }}
+                  </div>
+                  <span class="text-sm text-gray-500">({{ popupData.reviews }} đánh giá)</span>
+                </div>
+              </div>
+              
+              <div class="mb-6">
+                <img :src="popupData.image" :alt="popupData.name" class="w-full h-64 object-cover rounded-lg">
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <h3 class="font-semibold text-lg mb-3 !text-gray-800">Thông tin cơ bản</h3>
+                  <ul class="space-y-2">
+                    <li class="flex items-start">
+                      <i class="fas fa-map-marker-alt !text-blue-600 mt-1 mr-3 w-5"></i>
+                      <span>80 Duy Tân, Dịch Vọng Hậu, Cầu Giấy, Hà Nội</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-expand !text-blue-600 mt-1 mr-3 w-5"></i>
+                      <span>{{ popupData.area }}</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-tags !text-blue-600 mt-1 mr-3 w-5"></i>
+                      <span>{{ popupData.price }}</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-building !text-blue-600 mt-1 mr-3 w-5"></i>
+                      <span>{{ popupData.type }}</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 class="font-semibold text-lg mb-3 text-gray-800">Tiện ích</h3>
+                  <ul class="space-y-2">
+                    <li class="flex items-center">
+                      <i class="fas fa-check-circle !text-green-600 mr-3"></i>
+                      <span>Hệ thống camera an ninh</span>
+                    </li>
+                    <li class="flex items-center">
+                      <i class="fas fa-check-circle !text-green-600 mr-3"></i>
+                      <span>Bảo vệ 24/7</span>
+                    </li>
+                    <li class="flex items-center">
+                      <i class="fas fa-check-circle !text-green-600 mr-3"></i>
+                      <span>Hệ thống PCCC hiện đại</span>
+                    </li>
+                    <li class="flex items-center">
+                      <i class="fas fa-check-circle !text-green-600 mr-3"></i>
+                      <span>Thang máy tốc độ cao</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="mb-6">
+                <h3 class="font-semibold text-lg mb-3 text-gray-800">Mô tả</h3>
+                <p class="!text-gray-600">
+                  Tòa nhà văn phòng cao cấp với vị trí đắc địa tại trung tâm khu vực Duy Tân. Không gian làm việc hiện đại, 
+                  tiện nghi đầy đủ, phù hợp với các doanh nghiệp vừa và nhỏ. Khu vực xung quanh sôi động với nhiều 
+                  tiện ích như ngân hàng, nhà hàng, café và các dịch vụ tiện ích khác.
+                </p>
+              </div>
+              
+              <div class="border-t border-gray-200 pt-6">
+                <h3 class="font-semibold text-lg mb-3 text-gray-800">Liên hệ ngay</h3>
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <a href="tel:0912345678" class="flex-1 bg-blue-600 !text-white py-3 rounded-lg text-center font-medium hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-phone-alt mr-2"></i> Gọi: {{ popupData.contact }}
+                  </a>
+                  <button class="flex-1 border border-blue-600 text-blue-600 py-3 rounded-lg text-center font-medium hover:bg-blue-50 transition-colors">
+                    <i class="fas fa-envelope mr-2"></i> Gửi email
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
 
       <!-- Map Controls -->
-      <div class="absolute top-4 right-4 z-10 flex flex-col space-y-2">
+      <div class="absolute top-4 right-4 z-10 flex flex-col space-y-1 md:space-y-2">
         <button 
           @click="zoomIn"
-          class="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
+          class="bg-white w-12 h-12 md:w-10 md:h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
           v-button-hover
         >
-          <i class="fas fa-plus text-gray-700"></i>
+          <i class="fas fa-plus text-gray-700 text-lg md:text-base"></i>
         </button>
         <button 
           @click="zoomOut"
-          class="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
+          class="bg-white w-12 h-12 md:w-10 md:h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
           v-button-hover
         >
-          <i class="fas fa-minus text-gray-700"></i>
+          <i class="fas fa-minus text-gray-700 text-lg md:text-base"></i>
         </button>
         <button 
           @click="toggleMapView"
-          class="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
+          class="bg-white w-12 h-12 md:w-10 md:h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
           v-button-hover
         >
-          <i class="fas fa-layer-group text-gray-700"></i>
+          <i class="fas fa-layer-group text-gray-700 text-lg md:text-base"></i>
         </button>
         <button 
           @click="toggleHeatmap"
-          class="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
+          class="bg-white w-12 h-12 md:w-10 md:h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
           :class="{ 'bg-red-100': isHeatmapVisible }"
           v-button-hover
         >
-          <i class="fas fa-fire text-gray-700" :class="{ 'text-red-500': isHeatmapVisible }"></i>
+          <i class="fas fa-fire text-gray-700 text-lg md:text-base" :class="{ 'text-red-500': isHeatmapVisible }"></i>
         </button>
         <button 
           @click="toggleTraffic"
-          class="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
+          class="bg-white w-12 h-12 md:w-10 md:h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
           :class="{ 'bg-blue-100': isTrafficVisible }"
           v-button-hover
         >
-          <i class="fas fa-car text-gray-700" :class="{ 'text-blue-500': isTrafficVisible }"></i>
+          <i class="fas fa-car text-gray-700 text-lg md:text-base" :class="{ 'text-blue-500': isTrafficVisible }"></i>
         </button>
         <button 
           @click="toggleDrawing"
-          class="bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
+          class="bg-white w-12 h-12 md:w-10 md:h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
           v-button-hover
         >
-          <i class="fas fa-draw-polygon text-gray-700"></i>
+          <i class="fas fa-draw-polygon text-gray-700 text-lg md:text-base"></i>
         </button>
       </div>
       
@@ -100,6 +200,32 @@
         <i class="fas fa-filter text-blue-600"></i>
         <span class="text-gray-700">Bộ lọc</span>
       </button>-->
+
+            <!-- Features Legend -->
+      <div class="absolute md:bottom-4 bottom-16 right-4 z-10 bg-white rounded-lg shadow-lg p-2 md:p-4 max-w-xs">
+        <h4 class="font-medium text-sm mb-2 text-gray-700 md:block hidden">Tính năng bản đồ</h4>
+        <h4 class="font-medium text-xs mb-1 text-gray-700 md:hidden block">Chú thích</h4>
+        <div class="space-y-1 text-xs">
+          <div class="flex items-center">
+            <div class="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center mr-1 md:mr-2">
+              <i class="fas fa-fire text-red-500"></i>
+            </div>
+            <span class="text-gray-600 text-xs md:text-sm">Mật độ khách hàng <span class="hidden md:inline">(màu vàng → đỏ: thấp → cao)</span></span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center mr-1 md:mr-2">
+              <i class="fas fa-car text-blue-500"></i>
+            </div>
+            <span class="text-gray-600 text-xs md:text-sm">Lưu lượng giao thông</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center mr-1 md:mr-2">
+              <i class="fas fa-draw-polygon text-green-500"></i>
+            </div>
+            <span class="text-gray-600 text-xs md:text-sm">Phân tích khu vực</span>
+          </div>
+        </div>
+      </div>
       
       <!-- Map Container -->
       <div ref="mapContainer" class="w-full h-full map-container transition-opacity duration-500" :class="{ 'opacity-50': isFilterOpen }"></div>
@@ -127,6 +253,21 @@
   const selectedBusinessType = ref('');
   const markers = ref([]);
   
+  // Popup related data
+  const showPopup = ref(false);
+  const popupData = ref({
+    name: "Toà nhà 80 Duy Tân",
+    image: new URL('../assets/shop1.jpg', import.meta.url).href,
+    price: "Khoảng giá: 60 triệu / tháng",
+    area: "Diện tích: 160 m²",
+    amenities: "Tiện ích: Camera, Bảo vệ, PCCC",
+    interior: "Nội thất: Đầy đủ",
+    rating: 4.7,
+    reviews: 28,
+    type: "Văn phòng kết hợp thương mại",
+    contact: "0912 345 678"
+  });
+  
   const toggleFilter = () => {
     isFilterOpen.value = !isFilterOpen.value;
   };
@@ -152,6 +293,19 @@
     
     // Auto-close filter panel after applying
     isFilterOpen.value = false;
+  };
+  
+  // Popup related functions
+  const openPopup = () => {
+    showPopup.value = true;
+    // Add body class to prevent scrolling
+    document.body.classList.add('overflow-hidden');
+  };
+  
+  const closePopup = () => {
+    showPopup.value = false;
+    // Remove body class to allow scrolling
+    document.body.classList.remove('overflow-hidden');
   };
   
   const loadGoogleMapsAPI = () => {
@@ -599,7 +753,7 @@
                     </div>
                 </div>
                 <div class="info-window-image">
-                    <img src="${mainLocationData.image}" alt="${mainLocationData.name}">
+                    <img src="${import.meta.env.BASE_URL}src/assets/80dt.jpg" alt="${mainLocationData.name}" />
                 </div>
                 <div class="info-window-details">
                     <p class="price"><strong>${mainLocationData.price}</strong></p>
@@ -610,7 +764,7 @@
                     <p class="contact"><i class="fas fa-phone"></i> ${mainLocationData.contact}</p>
                 </div>
                 <div class="info-window-actions">
-                    <button class="view-details" onclick="window.alert('Chức năng này đang được phát triển')">Xem chi tiết</button>
+                    <button class="view-details" onclick="showDetailPopup()">Xem chi tiết</button>
                     <button class="contact-owner" onclick="window.alert('Đang kết nối với chủ sở hữu...')">Liên hệ</button>
                 </div>
             </div>`;
@@ -722,7 +876,7 @@
   onMounted(async () => {
     try {
       await loadGoogleMapsAPI();
-      const mapInstance = initMap();
+      initMap(); // We're already storing the map in map.value
       
       // Hide loading overlay with delay for smoother transition
       setTimeout(() => {
@@ -734,12 +888,18 @@
       }, 800);
       
       window.addEventListener('resize', () => {
-        if (mapInstance && typeof google !== 'undefined') {
-            const center = mapInstance.getCenter();
-            google.maps.event.trigger(mapInstance, 'resize');
-            if (center) mapInstance.setCenter(center);
+        if (map.value && typeof google !== 'undefined') {
+            const center = map.value.getCenter();
+            google.maps.event.trigger(map.value, 'resize');
+            if (center) map.value.setCenter(center);
         }
       });
+      
+      // Add global function to show detail popup
+      window.showDetailPopup = () => {
+        openPopup();
+      };
+      
     } catch (error) {
       console.error('Error loading Google Maps:', error);
       isLoading.value = false;
@@ -752,6 +912,10 @@
   onUnmounted(() => {
     // Clean up any event listeners or timers
     window.removeEventListener('resize', () => {});
+    
+    // Clean up global functions
+    window.showDetailPopup = undefined;
+    window.closeInfoWindow = undefined;
   });
   </script>
   
@@ -766,6 +930,20 @@
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
+    min-height: 400px; /* Ensure minimum height on mobile */
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .map-container {
+      height: 50vh !important; /* Take up half of the viewport height */
+      min-height: 350px; /* Minimum height */
+      max-height: 450px; /* Maximum height */
+      border-radius: 0; /* Full width on mobile */
+      position: relative !important; /* Override absolute position */
+      margin-bottom: 1rem; /* Add space below the map */
+      overflow: visible; /* Ensure content flows naturally */
+    }
   }
 
   /* Loading animation */
@@ -864,14 +1042,24 @@
 
   .view-details {
     background-color: #2563eb;
-    color: white;
+    color: white !important;
     border: none;
   }
 
   .contact-owner {
     background-color: white;
-    color: #2563eb;
+    color: #2563eb !important;
     border: 1px solid #2563eb;
+  }
+  
+  /* Ensure proper text colors in popup */
+  .fixed.inset-0.flex.items-center.justify-center.z-50 h1,
+  .fixed.inset-0.flex.items-center.justify-center.z-50 h2,
+  .fixed.inset-0.flex.items-center.justify-center.z-50 h3,
+  .fixed.inset-0.flex.items-center.justify-center.z-50 p,
+  .fixed.inset-0.flex.items-center.justify-center.z-50 span,
+  .fixed.inset-0.flex.items-center.justify-center.z-50 li {
+    color: inherit;
   }
 
   /* Competitor marker styling */
@@ -958,6 +1146,51 @@
     10% { opacity: 1; }
     80% { opacity: 1; }
     100% { opacity: 0; }
+  }
+  
+  /* Mobile optimizations for popup */
+  @media (max-width: 640px) {
+    .info-window-container {
+      max-width: 280px;
+    }
+    
+    .info-window-details p {
+      font-size: 12px;
+    }
+    
+    .info-window-actions button {
+      padding: 6px 0;
+      font-size: 12px;
+    }
+    
+    /* Make map buttons easier to tap */
+    .gm-ui-hover-effect {
+      width: 30px !important;
+      height: 30px !important;
+    }
+  }
+  
+  /* Additional mobile optimizations for the map component */
+  @media (max-width: 768px) {
+    .map-component {
+      height: 100% !important;
+      max-height: none; /* Use the container's height constraint instead */
+      min-height: 0; /* Let the parent control the height */
+      overflow: hidden; /* Prevent any internal scrolling */
+    }
+    
+    .map-container {
+      position: absolute !important;
+      height: 100% !important;
+      z-index: 1; /* Ensure proper stacking */
+    }
+  }
+  
+  /* Fix for bottom controls on mobile */
+  @media (max-width: 768px) {
+    .absolute.bottom-16 {
+      bottom: 4rem; /* Move up the legend for better visibility */
+    }
   }
   </style>
 

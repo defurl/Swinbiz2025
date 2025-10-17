@@ -1,5 +1,5 @@
 <template>
-  <div class="text-gray-800 relative">
+  <div class="text-gray-800 relative h-full pb-16">
     <!-- Loading Overlay -->
     <transition
       enter-active-class="transition-opacity duration-500"
@@ -43,9 +43,6 @@
             </ul>
           </div>
         </div>
-        <button class="mt-4 w-full !bg-yellow-400 !hover:bg-yellow-500 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-300">
-          Xem chi tiết...
-        </button>
       </div>
 
       <!-- Traffic -->
