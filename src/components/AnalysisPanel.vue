@@ -1,77 +1,61 @@
 <template>
-    <div class="space-y-6 text-gray-800 max-w-md mx-auto">
+  <div class="text-gray-800">
+    <h2 class="text-2xl font-bold mb-1">Khu vực:</h2>
+    <h3 class="text-xl font-semibold text-blue-600 mb-6">Dịch Vọng Hậu, Cầu Giấy, Hà Nội</h3>
+
+    <div class="space-y-6">
+      <!-- Area Details -->
       <div>
-          <h1 class="text-2xl font-bold text-gray-900">Phân tích khu vực</h1>
-          <p class="text-md text-gray-600 font-semibold">80 Duy Tân, Dịch Vọng Hậu, Cầu Giấy, Hà Nội</p>
+        <ul class="space-y-2 text-gray-700 list-inside">
+          <li><strong>1. Diện tích:</strong> 1.48 km²</li>
+          <li><strong>2. Dân số:</strong> 31,879 người (năm 2022)</li>
+          <li><strong>3. Mật độ dân số:</strong> Khoảng 21,539 người/km²</li>
+          <li><strong>4. Phân loại khu vực:</strong> Khu dân cư + văn phòng + trường học</li>
+        </ul>
       </div>
-  
-      <!-- Recommendation Card -->
-      <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-r-lg">
-          <p class="font-bold">Đề xuất: Triển khai</p>
-          <p>Khu vực có tiềm năng cao cho mô hình quán cà phê và đồ ăn nhanh.</p>
-      </div>
-  
-      <!-- Demographics Card -->
-      <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-          <h2 class="text-lg font-bold mb-3">Dân cư</h2>
-          <ul class="space-y-2 text-sm">
-              <li class="flex justify-between"><span>Mật độ dân số:</span> <span class="font-semibold">Cao</span></li>
-              <li class="flex justify-between"><span>Thu nhập trung bình:</span> <span class="font-semibold">Khá</span></li>
-              <li class="flex justify-between"><span>Đối tượng chính:</span> <span class="font-semibold">Nhân viên văn phòng, sinh viên</span></li>
-          </ul>
-      </div>
-  
-       <!-- Competitor Card -->
-      <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-          <h2 class="text-lg font-bold mb-3">Đối thủ cạnh tranh (bán kính 500m)</h2>
-          <ul class="space-y-2 text-sm">
-              <li class="flex justify-between items-center">
-                  <span>Highlands Coffee</span>
-                  <span class="text-xs font-bold text-white bg-red-500 px-2 py-1 rounded-full">Cao</span>
+
+      <!-- F&B Models -->
+      <div>
+        <h4 class="text-lg font-bold mb-3">Mô hình F&B phổ biến:</h4>
+        <div class="flex items-center">
+          <div class="w-2/5">
+            <PieChart :data="chartData" />
+          </div>
+          <div class="w-3/5 pl-4 text-sm">
+            <ul class="space-y-1">
+              <li v-for="item in chartData" :key="item.label" class="flex items-center">
+                <span class="inline-block w-3 h-3 rounded-full mr-2" :style="{ backgroundColor: item.color }"></span>
+                {{ item.label }}: <strong>{{ item.value }}%</strong>
               </li>
-              <li class="flex justify-between items-center">
-                  <span>The Coffee House</span>
-                   <span class="text-xs font-bold text-white bg-red-500 px-2 py-1 rounded-full">Cao</span>
-              </li>
-               <li class="flex justify-between items-center">
-                  <span>Cộng Cà Phê</span>
-                  <span class="text-xs font-bold text-white bg-orange-500 px-2 py-1 rounded-full">Trung bình</span>
-              </li>
-              <li class="flex justify-between items-center">
-                  <span>Aha Cafe</span>
-                  <span class="text-xs font-bold text-white bg-yellow-500 px-2 py-1 rounded-full">Thấp</span>
-              </li>
-          </ul>
+            </ul>
+          </div>
+        </div>
+        <button class="mt-4 w-full !bg-yellow-400 !hover:bg-yellow-500 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-300">
+          Xem chi tiết...
+        </button>
       </div>
-  
-      <!-- Traffic Card -->
-      <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-          <h2 class="text-lg font-bold mb-3">Lưu lượng truy cập</h2>
-          <ul class="space-y-2 text-sm">
-              <li class="flex justify-between"><span>Giờ cao điểm (sáng):</span> <span class="font-semibold">8:00 - 9:00</span></li>
-              <li class="flex justify-between"><span>Giờ cao điểm (trưa):</span> <span class="font-semibold">12:00 - 13:30</span></li>
-              <li class="flex justify-between"><span>Lưu lượng cuối tuần:</span> <span class="font-semibold">Trung bình</span></li>
-          </ul>
-      </div>
-  
-      <!-- Financial Card -->
-      <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-          <h2 class="text-lg font-bold mb-3">Chi phí & Lợi nhuận (Ước tính)</h2>
-           <ul class="space-y-2 text-sm">
-              <li class="flex justify-between"><span>Giá thuê mặt bằng:</span> <span class="font-semibold">45 triệu/tháng</span></li>
-              <li class="flex justify-between"><span>Doanh thu tiềm năng:</span> <span class="font-semibold">250 - 350 triệu/tháng</span></li>
-              <li class="flex justify-between"><span>Thời gian hoàn vốn:</span> <span class="font-semibold">12 - 18 tháng</span></li>
-          </ul>
+
+      <!-- Traffic -->
+      <div>
+        <h4 class="text-lg font-bold mb-2">Lưu lượng & Traffic trung bình:</h4>
+        <ul class="space-y-2 text-gray-700 list-inside">
+          <li><strong>1. Traffic trung bình:</strong> 4,200 người/giờ</li>
+          <li><strong>2. Giờ cao điểm:</strong> 7:00-9:00 sáng | 17:00-20:00 tối</li>
+          <li><strong>3. Nguồn traffic chính:</strong> Văn phòng & sinh viên khu vực</li>
+        </ul>
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  </script>
-  
-  <style scoped>
-  /* Add subtle hover effects to make the panel more interactive */
-  .shadow-md:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  }
-  </style>
+  </div>
+</template>
+
+<script setup>
+import PieChart from './PieChart.vue';
+
+const chartData = [
+  { label: 'Cà phê', value: 39.1, color: '#4A90E2' },
+  { label: 'Đồ ăn nhanh', value: 26.1, color: '#50E3C2' },
+  { label: 'Nhà hàng', value: 17.4, color: '#F5A623' },
+  { label: 'Trà sữa', value: 17.4, color: '#BD10E0' },
+];
+</script>
+

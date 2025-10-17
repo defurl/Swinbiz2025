@@ -11,14 +11,11 @@
 
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center font-medium text-gray-600 space-x-6">
-        <router-link to="/analysis" class="hover:text-blue-600 transition-colors duration-200">
+        <router-link to="/select-location" class="hover:text-blue-600 transition-colors duration-200">
           Giải pháp cho doanh nghiệp F&B
         </router-link>
         <router-link to="/listing" class="hover:text-blue-600 transition-colors duration-200">
           Giải pháp cho chủ mặt bằng
-        </router-link>
-        <router-link to="/" class="hover:text-blue-600 transition-colors duration-200">
-          Blog
         </router-link>
         <router-link to="/" class="hover:text-blue-600 transition-colors duration-200">
           Về chúng tôi
