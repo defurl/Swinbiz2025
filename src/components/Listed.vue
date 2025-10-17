@@ -1,56 +1,58 @@
 <template>
   <div class="p-6">
-    <h2 class="text-2xl font-bold mb-4">Danh sách bài đăng</h2>
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Danh sách bài đăng</h2>
 
     <!-- Search & Filters -->
     <div class="flex flex-col md:flex-row gap-4 mb-6 items-center">
-      <input v-model="q" placeholder="Tìm kiếm theo địa chỉ..." class="border rounded px-4 py-2 w-full md:w-1/3" />
+      <input v-model="q" placeholder="Tìm kiếm theo địa chỉ..." class="border rounded px-4 py-2 w-full md:w-1/3 text-gray-800" />
 
-      <input v-model.number="filters.minPrice" type="number" placeholder="Giá từ (triệu đ) — ví dụ: 2 = 2.000.000" class="border rounded px-4 py-2 w-full md:w-1/6" />
-      <input v-model.number="filters.maxPrice" type="number" placeholder="Giá đến (triệu đ) — ví dụ: 10 = 10.000.000" class="border rounded px-4 py-2 w-full md:w-1/6" />
-      <input v-model.number="filters.minArea" type="number" placeholder="Diện tích tối thiểu (m²)" class="border rounded px-4 py-2 w-full md:w-1/6" />
+      <input v-model.number="filters.minPrice" type="number" placeholder="Giá từ (triệu đ)" class="border rounded px-4 py-2 w-full md:w-1/6 text-gray-800" />
+      <input v-model.number="filters.maxPrice" type="number" placeholder="Giá đến (triệu đ)" class="border rounded px-4 py-2 w-full md:w-1/6 text-gray-800" />
+      <input v-model.number="filters.minArea" type="number" placeholder="Diện tích tối thiểu (m²)" class="border rounded px-4 py-2 w-full md:w-1/6 text-gray-800" />
 
-      <select v-model="filters.type" class="border rounded px-4 py-2 w-full md:w-1/6">
+      <select v-model="filters.type" class="border rounded px-4 py-2 w-full md:w-1/6 text-gray-800">
         <option value="">Tất cả loại</option>
         <option>Shophouse / Nhà phố</option>
         <option>Kiosk</option>
         <option>Tầng trệt chung cư</option>
       </select>
 
-      <button @click="resetFilters" class="ml-auto !bg-gray-300 hover:bg-gray-300 text-sm px-3 py-2 rounded">RESET</button>
+      <button @click="resetFilters" class="ml-auto bg-gray-300 hover:bg-gray-400 text-gray-800 text-sm px-3 py-2 rounded">RESET</button>
     </div>
 
     <!-- Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div v-for="(item, idx) in filtered" :key="item.createdAt + idx" class="border rounded-lg overflow-hidden shadow hover:shadow-lg cursor-pointer" @click="openDetail(item)">
+      <div v-for="(item, idx) in filtered" :key="item.createdAt + idx" class="border rounded-lg overflow-hidden shadow hover:shadow-lg cursor-pointer bg-white" @click="openDetail(item)">
         <div class="h-40 bg-gray-100">
           <img v-if="item.image" :src="item.image" class="w-full h-full object-cover" />
           <div v-else class="w-full h-full flex items-center justify-center text-gray-500">No image</div>
         </div>
         <div class="p-4">
           <p class="font-semibold text-blue-800">{{ item.address }}</p>
-          <p class="text-sm text-gray-600">{{ formatPrice(item.price) }}</p>
-          <p class="text-sm text-gray-600">{{ item.area }} m²</p>
+          <p class="text-sm text-gray-700">{{ formatPrice(item.price) }}</p>
+          <p class="text-sm text-gray-700">{{ item.area }} m²</p>
         </div>
       </div>
     </div>
 
     <!-- Detail Modal -->
     <div v-if="detail" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full p-6 relative">
-        <button @click="closeDetail" class="absolute top-3 right-3 bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">X</button>
+      <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full p-6 relative text-gray-800">
+        <button @click="closeDetail" class="absolute top-3 right-3 bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-300 text-gray-700">
+          <span class="text-gray-700">✕</span>
+        </button>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <img v-if="detail.image" :src="detail.image" class="w-full h-64 object-cover rounded-md" />
             <div v-else class="w-full h-64 bg-gray-100 rounded-md flex items-center justify-center text-gray-500">No image</div>
           </div>
           <div>
-            <h3 class="text-xl font-bold mb-2">{{ detail.address }}</h3>
-            <p class="text-gray-700 mb-2">Giá: {{ formatPrice(detail.price) }}</p>
-            <p class="text-gray-700 mb-2">Diện tích: {{ detail.area }} m²</p>
-            <p class="text-gray-700 mb-2">Loại: {{ detail.type }}</p>
-            <p class="text-gray-700 mb-2">Mô tả: {{ detail.description }}</p>
-            <p class="text-gray-500 text-sm">Thời hạn thuê: {{ detail.minLease }}</p>
+            <h3 class="text-xl font-bold mb-2 text-blue-800">{{ detail.address }}</h3>
+            <p class="text-gray-700 mb-2"><span class="font-semibold text-gray-800">Giá:</span> {{ formatPrice(detail.price) }}</p>
+            <p class="text-gray-700 mb-2"><span class="font-semibold text-gray-800">Diện tích:</span> {{ detail.area }} m²</p>
+            <p class="text-gray-700 mb-2"><span class="font-semibold text-gray-800">Loại:</span> {{ detail.type }}</p>
+            <p class="text-gray-700 mb-2"><span class="font-semibold text-gray-800">Mô tả:</span> {{ detail.description }}</p>
+            <p class="text-gray-600 text-sm mt-4">Thời hạn thuê: {{ detail.minLease || 'Chưa xác định' }}</p>
           </div>
         </div>
       </div>

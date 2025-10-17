@@ -257,7 +257,7 @@
   const showPopup = ref(false);
   const popupData = ref({
     name: "Toà nhà 80 Duy Tân",
-    image: new URL('../assets/shop1.jpg', import.meta.url).href,
+    image: new URL('../assets/80dt.jpg', import.meta.url).href,
     price: "Khoảng giá: 60 triệu / tháng",
     area: "Diện tích: 160 m²",
     amenities: "Tiện ích: Camera, Bảo vệ, PCCC",
@@ -936,13 +936,12 @@
   /* Mobile optimizations */
   @media (max-width: 768px) {
     .map-container {
-      height: 50vh !important; /* Take up half of the viewport height */
-      min-height: 350px; /* Minimum height */
-      max-height: 450px; /* Maximum height */
+      height: 100% !important; /* Take up full height of parent */
       border-radius: 0; /* Full width on mobile */
-      position: relative !important; /* Override absolute position */
-      margin-bottom: 1rem; /* Add space below the map */
-      overflow: visible; /* Ensure content flows naturally */
+      position: absolute !important; /* Keep absolute position */
+      inset: 0; /* Fill the entire container */
+      margin: 0 !important; /* Remove any margin */
+      overflow: hidden; /* Keep content contained */
     }
   }
 

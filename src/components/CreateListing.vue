@@ -7,31 +7,35 @@
         :key="tab.id"
         @click="currentStep = index"
         :class="[
-          'flex-1 text-center py-3 font-semibold transition-colors !border !border-blue-400 duration-200 mx-1',
+          'flex-1 text-center py-3 font-semibold transition-colors border border-blue-400 duration-200 mx-1 rounded-md',
           currentStep === index
-            ? 'text-white !bg-blue-800 border-b-3 '
-            : 'text-blue-700 !hover:bg-blue-200 border-b-3 '
+            ? 'text-white bg-blue-600 shadow-md'
+            : 'text-blue-700 hover:bg-blue-100 hover:shadow-sm'
         ]"
       >
+        <span class="inline-block bg-white text-blue-600 rounded-full w-6 h-6 mr-2">{{ index + 1 }}</span>
         {{ tab.label }}
       </button>
     </div>
 
     <!-- Step Content -->
-    <div class="min-h-[400px]">
+    <div class="min-h-[400px] bg-gray-50 rounded-lg p-6">
       <!-- Step 1: Thông tin mặt bằng -->
-      <div v-if="currentStep === 0" class="space-y-4">
-        <h2 class="text-lg font-semibold text-blue-800 mb-4">Thông tin mặt bằng</h2>
+      <div v-if="currentStep === 0" class="space-y-6">
+        <h2 class="text-xl font-bold text-blue-800 mb-6 border-b border-blue-200 pb-3">Thông tin mặt bằng</h2>
 
         <div>
-          <label class="block font-medium text-blue-900 mb-1">Địa chỉ mặt bằng</label>
+          <label class="font-medium text-blue-900 mb-2 flex items-center">
+            <span class="text-blue-600 mr-2"><i class="fas fa-map-marker-alt"></i></span>
+            Địa chỉ mặt bằng
+          </label>
           <input
             v-model="listing.address"
             type="text"
-            placeholder="Nhập số nhà, đường, phường, quận..."
-            class="w-full border border-blue-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Nhập địa chỉ chính xác"
+            class="w-full border border-blue-400 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
           />
-          <p v-if="errors.address" class="text-red-600 text-sm mt-1">{{ errors.address }}</p>
+          <p v-if="errors.address" class="text-red-600 text-sm mt-2 pl-1">{{ errors.address }}</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
