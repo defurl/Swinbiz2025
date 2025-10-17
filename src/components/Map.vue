@@ -7,12 +7,30 @@
   
   const mapContainer = ref(null);
   
-  onMounted(() => {
-    if (typeof google === 'undefined') {
-      console.error('Google Maps API is not loaded.');
-      return;
-    }
-    
+  // Function to dynamically load Google Maps API
+  const loadGoogleMapsAPI = () => {
+    return new Promise((resolve, reject) => {
+      // Check if Google Maps is already loaded
+      if (typeof google !== 'undefined') {
+        resolve();
+        return;
+      }
+      
+      // Create script element
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&map_ids=FNB_SPOT_MAP_PROTOTYPE`;
+      script.async = true;
+      script.defer = true;
+      
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load Google Maps API'));
+      
+      document.head.appendChild(script);
+    });
+  };
+  
+  // Function to initialize the map
+  const initMap = () => {
     const hanoiLocation = { lat: 21.0289, lng: 105.7836 };
   
     const map = new google.maps.Map(mapContainer.value, {
@@ -61,6 +79,14 @@
         }
       });
     });
+  };
+  
+  onMounted(async () => {
+    try {
+      await loadGoogleMapsAPI();
+      initMap();
+    } catch (error) {
+      console.error('Error loading Google Maps:', error);
+    }
   });
   </script>
-  
