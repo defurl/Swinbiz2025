@@ -1,5 +1,18 @@
 <template>
-  <div class="text-gray-800">
+  <div class="text-gray-800 relative">
+    <!-- Loading Overlay -->
+    <transition
+      enter-active-class="transition-opacity duration-500"
+      leave-active-class="transition-opacity duration-500"
+      enter-from-class="opacity-0"
+      leave-to-class="opacity-0"
+    >
+      <div v-if="isLoading" class="absolute inset-0 bg-white flex flex-col items-center justify-center z-10">
+        <div class="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+        <p class="mt-4 text-gray-600 font-medium">Đang phân tích dữ liệu...</p>
+      </div>
+    </transition>
+    
     <h2 class="text-2xl font-bold mb-1">Khu vực:</h2>
     <h3 class="text-xl font-semibold text-blue-600 mb-6">Dịch Vọng Hậu, Cầu Giấy, Hà Nội</h3>
 
@@ -49,7 +62,11 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 import PieChart from './PieChart.vue';
+import { animations } from '../utils/animations';
+
+const isLoading = ref(true);
 
 const chartData = [
   { label: 'Cà phê', value: 39.1, color: '#4A90E2' },
@@ -57,5 +74,17 @@ const chartData = [
   { label: 'Nhà hàng', value: 17.4, color: '#F5A623' },
   { label: 'Trà sữa', value: 17.4, color: '#BD10E0' },
 ];
+
+onMounted(() => {
+  // Simulate data loading with a delay
+  setTimeout(() => {
+    isLoading.value = false;
+    // Apply fade-in animation to content after loading
+    const container = document.querySelector('.text-gray-800');
+    if (container) {
+      animations.fadeIn(container, 0.8);
+    }
+  }, 1200); // Slightly longer than map loading to ensure sequence
+});
 </script>
 

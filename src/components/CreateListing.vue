@@ -212,11 +212,27 @@
         </div>
       </div>
     </div>
+    
+    <!-- Success Modal -->
+    <div v-if="showSuccess" class="fixed inset-0 bg-black/50 flex items-center justify-center z-60">
+      <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-8 relative">
+        <button @click="closeSuccess" class="absolute top-4 right-4 bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center">X</button>
+        <div class="text-center">
+          <h2 class="text-2xl font-bold text-green-700 mb-4">Chúc mừng! Bài đăng đã được tạo</h2>
+          <p class="mb-6 text-gray-600">Bài đăng của bạn đã được lưu. Bạn có thể xem các bài đăng đã tạo ở trang quản lý.</p>
+          <div class="flex items-center justify-center gap-4">
+            <button @click="goToListed" class="bg-blue-700 text-white px-6 py-2 rounded-md">Đi tới bài đăng của tôi</button>
+            <button @click="closeSuccess" class="bg-gray-200 px-6 py-2 rounded-md">Đóng</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { ref, reactive, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Create',
@@ -242,9 +258,12 @@ export default {
       image: null // single data URL
     })
 
-    const errors = reactive({})
-    const submissionError = ref('')
-    const showPreview = ref(false)
+  const errors = reactive({})
+  const submissionError = ref('')
+  const showPreview = ref(false)
+  const showSuccess = ref(false)
+
+  const router = useRouter()
 
     const isValid = computed(() => {
       // all required fields must be present
@@ -352,14 +371,40 @@ export default {
         // emit event for parent components
         emit && emit('listing-submitted', payload)
 
-        // optionally reset form
-        // Object.assign(listing, { address: '', area: null, price: null, type: '', amenities: '', description: '', businessType: '', minLease: '', conditions: '', images: [] })
+        // reset form -> clear listing fields
+        Object.assign(listing, {
+          address: '',
+          area: null,
+          price: null,
+          type: '',
+          amenities: '',
+          description: '',
+          businessType: '',
+          minLease: '',
+          conditions: '',
+          image: null
+        })
+        // clear errors
+        Object.keys(errors).forEach(k => (errors[k] = ''))
 
-        // show confirmation (could be improved)
-        submissionError.value = 'Bài đăng đã được lưu tạm.'
+        // show a larger success modal
+        showSuccess.value = true
       } catch (err) {
         submissionError.value = 'Lưu bài đăng thất bại.'
         console.error(err)
+      }
+    }
+
+    function closeSuccess() {
+      showSuccess.value = false
+    }
+
+    function goToListed() {
+      // navigate to the listings page
+      try {
+        router.push('/listing/listed')
+      } catch (err) {
+        console.error('Router navigation failed', err)
       }
     }
 
@@ -375,11 +420,15 @@ export default {
       openPreview,
       closePreview,
       showPreview,
+      showSuccess,
       submitListing,
+      closeSuccess,
+      goToListed,
       formattedPrice,
       submissionError
     }
   }
 }
 </script>
+
 
